@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:mykit/serial/mykit-serial-service.properties"/>
+    </bean>
+
+    <bean id="serialNumberService" class="io.mykit.serial.service.impl.SerialNumberServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="propertyMachineSerialNumberProvider"/>
+    </bean>
+
+    <bean id="propertyMachineSerialNumberProvider" class="io.mykit.serial.provider.impl.PropertyMachineSerialNumberProvider">
+        <property name="machineSerialNumber" value="${mykit.serial.machine}"/>
+    </bean>
+
+    <bean id="serialNumberServiceIpConfigurable" class="io.mykit.serial.service.impl.SerialNumberServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="ipConfigurableMachineSerialNumberProvider"/>
+    </bean>
+
+    <bean id="ipConfigurableMachineSerialNumberProvider" class="io.mykit.serial.provider.impl.IpConfigurableMachineSerialNumberProvider" init-method="init">
+        <property name="ips" value="${mykit.serial.ips}"/>
+    </bean>
+
+    <bean id="serialNumberServiceDb" class="io.mykit.serial.service.impl.SerialNumberServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="dbMachineSerialNumberProvider"/>
+    </bean>
+
+    <bean id="dbMachineSerialNumberProvider"  class="io.mykit.serial.provider.impl.DbMachineSerialNumberProvider" init-method="init">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean name="datasource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName">
+            <value>${mykit.serial.driver}</value>
+        </property>
+        <property name="initialSize">
+            <value>${mykit.serial.initialSize}</value>
+        </property>
+        <property name="minIdle">
+            <value>${mykit.serial.minIdle}</value>
+        </property>
+        <property name="maxActive">
+            <value>${mykit.serial.maxActive}</value>
+        </property>
+        <property name="maxWait">
+            <value>${mykit.serial.maxWait}</value>
+        </property>
+        <property name="timeBetweenEvictionRunsMillis">
+            <value>${mykit.serial.timeBetweenEvictionRunsMillis}</value>
+        </property>
+        <property name="minEvictableIdleTimeMillis">
+            <value>${mykit.serial.minEvictableIdleTimeMillis}</value>
+        </property>
+        <property name="validationQuery">
+            <value>${mykit.serial.validationQuery}</value>
+        </property>
+        <property name="testWhileIdle">
+            <value>${mykit.serial.testWhileIdle}</value>
+        </property>
+        <property name="testOnBorrow">
+            <value>${mykit.serial.testOnBorrow}</value>
+        </property>
+        <property name="testOnReturn">
+            <value>${mykit.serial.testOnReturn}</value>
+        </property>
+        <property name="poolPreparedStatements">
+            <value>${mykit.serial.poolPreparedStatements}</value>
+        </property>
+        <property name="maxPoolPreparedStatementPerConnectionSize">
+            <value>${mykit.serial.maxPoolPreparedStatementPerConnectionSize}</value>
+        </property>
+        <property name="filters">
+            <value>${mykit.serial.filters}</value>
+        </property>
+        <property name="url">
+            <value>${mykit.serial.url}</value>
+        </property>
+        <property name="username">
+            <value>${mykit.serial.user}</value>
+        </property>
+        <property name="password">
+            <value>${mykit.serial.password}</value>
+        </property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" abstract="false" lazy-init="false" autowire="default"
+          dependency-check="default">
+        <property name="dataSource">
+            <ref bean="datasource"/>
+        </property>
+    </bean>
+</beans>

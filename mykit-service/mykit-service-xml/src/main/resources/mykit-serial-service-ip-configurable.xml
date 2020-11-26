@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:mykit/serial/mykit-serial-service.properties"/>
+    </bean>
+
+    <bean id="serialNumberService" class="io.mykit.serial.service.impl.SerialNumberServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="ipConfigurableMachineSerialNumberProvider"/>
+    </bean>
+
+    <bean id="ipConfigurableMachineSerialNumberProvider" class="io.mykit.serial.provider.impl.IpConfigurableMachineSerialNumberProvider" init-method="init">
+        <property name="ips" value="${mykit.serial.ips}"/>
+    </bean>
+
+</beans>

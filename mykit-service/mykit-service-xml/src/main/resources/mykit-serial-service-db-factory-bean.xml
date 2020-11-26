@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:mykit/serial/mykit-serial-service.properties"/>
+    </bean>
+
+    <bean id="serialNumberService" class="io.mykit.serial.service.factory.SerialNumberServiceFactoryBean" init-method="init">
+        <property name="providerType" value="DB"/>
+
+        <property name="dbUrl" value="${mykit.serial.url}"/>
+        <property name="dbUser" value="${mykit.serial.user}"/>
+        <property name="dbPassword" value="${mykit.serial.password}"/>
+    </bean>
+
+</beans>

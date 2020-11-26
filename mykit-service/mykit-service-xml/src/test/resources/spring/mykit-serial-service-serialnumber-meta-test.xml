@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:mykit/serial/mykit-serial-service.properties"/>
+    </bean>
+
+    <bean id="serialNumberService" class="io.mykit.serial.service.impl.SerialNumberServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="propertyMachineSerialNumberProvider"/>
+        <property name="serialNumberMeta" ref="serialNumberMeta"/>
+    </bean>
+
+    <bean id="serialNumberMeta" class="io.mykit.serial.bean.meta.SerialNumberMeta">
+        <constructor-arg value="16"/>
+        <constructor-arg value="14"/>
+        <constructor-arg value="30"/>
+        <constructor-arg value="2"/>
+        <constructor-arg value="1"/>
+        <constructor-arg value="1"/>
+    </bean>
+
+    <bean id="propertyMachineSerialNumberProvider" class="io.mykit.serial.provider.impl.PropertyMachineSerialNumberProvider">
+        <property name="machineSerialNumber" value="65535"/>
+    </bean>
+
+</beans>
