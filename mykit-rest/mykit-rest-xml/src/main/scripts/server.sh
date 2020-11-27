@@ -1,8 +1,8 @@
 #!/bin/bash
 
-name="mykit-serial RPC Server"
+name="mykit-serial Rest Server"
 
-package=mykit-server-dubbo-xml-1.0.0-SNAPSHOT.jar
+package=mykit-serial-rest-1.0.0.jar
  
 #全局变量
 BASE_PATH=${BASE_PATH:-`cd "$(dirname "$0")"; pwd`}
@@ -10,7 +10,7 @@ APP_PATH=${APP_PATH:-`dirname "$BASE_PATH"`}
 
 
 #设置java运行参数
-GC_OPTS=" -Xms512m -Xmx512m -Xmn128m -Xss256K -XX:SurvivorRatio=6 -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=256M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=92 -XX:+UseCMSInitiatingOccupancyOnly"
+GC_OPTS=" -server -Xms512m -Xmx512m -Xmn128m -Xss256K -XX:SurvivorRatio=6 -XX:MetaspaceSize=256M -XX:MaxMetaspaceSize=256M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=92 -XX:+UseCMSInitiatingOccupancyOnly"
 GC_LOG_OPTS=" -verbose:gc  -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution  -XX:+PrintGCDetails -Xloggc:./logs/gc.log"
 PRG_OPTS=""
 

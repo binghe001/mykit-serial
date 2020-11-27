@@ -18,6 +18,7 @@
         <module>mykit-core</module>
         <module>mykit-interface</module>
         <module>mykit-server</module>
+        <module>mykit-rest</module>
     </modules>
 
 
