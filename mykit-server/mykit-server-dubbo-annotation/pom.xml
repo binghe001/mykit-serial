@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>io.mykit.serial</groupId>
-            <artifactId>mykit-service-xml</artifactId>
+            <artifactId>mykit-service-annotation</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
