@@ -14,6 +14,7 @@
     <modules>
         <module>mykit-rest-common</module>
         <module>mykit-rest-xml</module>
+        <module>mykit-rest-annotation</module>
     </modules>
 
 
