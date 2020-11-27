@@ -9,7 +9,7 @@
 
     <dubbo:registry address="${dubbo.registry.address}"/>
 
-    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>
 
     <dubbo:reference interface="io.mykit.serial.service.SerialNumberService" id="serialNumberService"/>
 
