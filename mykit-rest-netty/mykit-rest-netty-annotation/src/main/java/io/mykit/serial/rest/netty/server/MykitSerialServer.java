@@ -16,11 +16,13 @@
 package io.mykit.serial.rest.netty.server;
 
 import io.mykit.serial.rest.netty.base.server.SerialNumberRestNettyServer;
+import io.mykit.serial.rest.netty.config.SerialNumberRestConfig;
 import io.mykit.serial.rest.netty.handler.SerialNumberRestNettyServerHandler;
 import io.mykit.serial.service.SerialNumberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -32,12 +34,12 @@ public class MykitSerialServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MykitSerialServer.class);
     public static void main(String[] args){
-        int port = 10003;
+        int port = 10002;
         if(args != null && args.length > 0){
             port = Integer.parseInt(args[0]);
         }
         try{
-            ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/mykit-serial-rest-main.xml");
+            ApplicationContext context = new AnnotationConfigApplicationContext(SerialNumberRestConfig.class);
             SerialNumberService serialNumberService = (SerialNumberService)context.getBean("serialNumberService");
             new SerialNumberRestNettyServer(port, new SerialNumberRestNettyServerHandler(serialNumberService)).startup();
         }catch (Exception e){

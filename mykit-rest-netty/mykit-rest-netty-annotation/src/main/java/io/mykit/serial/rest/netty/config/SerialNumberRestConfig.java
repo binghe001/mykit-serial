@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.mykit.serial.rest.config;
+package io.mykit.serial.rest.netty.config;
 
 import io.mykit.serial.enums.StoreType;
-import io.mykit.serial.rest.loader.PropLoader;
+import io.mykit.serial.rest.netty.loader.PropLoader;
 import io.mykit.serial.service.factory.SerialNumberServiceFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,10 +24,10 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author binghe
  * @version 1.0.0
- * @description 系列号配置
+ * @description 配置类
  */
 @Configuration
-public class SerialNumberConfig {
+public class SerialNumberRestConfig {
 
     @Bean(name = {"serialNumberService"}, initMethod = "init")
     public SerialNumberServiceFactoryBean serialNumberService(){

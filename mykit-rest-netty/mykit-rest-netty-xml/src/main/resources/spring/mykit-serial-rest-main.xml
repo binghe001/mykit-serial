@@ -11,8 +11,8 @@
     <bean id="serialNumberService" class="io.mykit.serial.service.factory.SerialNumberServiceFactoryBean" init-method="init">
         <property name="providerType" value="PROPERTY"/>
 
-        <property name="genMethod" value="${vesta.genMethod}"/>
-        <property name="machineSerialNumber" value="${vesta.machine}"/>
+        <property name="genMethod" value="${mykit.serial.genMethod}"/>
+        <property name="machineSerialNumber" value="${mykit.serial.machine}"/>
     </bean>
 
 </beans>
