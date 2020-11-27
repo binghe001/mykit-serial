@@ -10,9 +10,9 @@
     <appender name="file"  
         class="ch.qos.logback.core.rolling.RollingFileAppender">  
         <Encoding>UTF-8</Encoding>  
-        <File>/home/mykit/serial/dubbo/logs/mykit-serial-dubbo-xml.log</File>
+        <File>/home/mykit/serial/dubbo/logs/mykit-serial-dubbo-annotation.log</File>  
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
-            <FileNamePattern>/home/mykit/serial/dubbo/logs/mykit-serial-dubbo-xml-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>/home/mykit/serial/dubbo/logs/mykit-serial-dubbo-annotation-%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>10</MaxHistory>  
             <TimeBasedFileNamingAndTriggeringPolicy  
                 class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  

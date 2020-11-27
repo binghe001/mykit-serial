@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>mykit-server-dubbo-xml</module>
+        <module>mykit-server-dubbo-annotation</module>
     </modules>
 
 </project>
