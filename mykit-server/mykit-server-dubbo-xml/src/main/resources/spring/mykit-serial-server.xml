@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="mykit-serial-service"/>
+
+    <dubbo:registry address="${mykit.serial.service.register.center}"/>
+
+    <dubbo:protocol name="dubbo" port="${mykit.serial.service.port}"/>
+
+    <bean id="serialNumberService" class="io.mykit.serial.service.factory.SerialNumberServiceFactoryBean" init-method="init">
+        <property name="providerType" value="PROPERTY"/>
+
+        <property name="genMethod" value="${mykit.serial.genMethod}"/>
+        <property name="machineSerialNumber" value="${mykit.serial.machine}"/>
+    </bean>
+
+    <dubbo:service interface="io.mykit.serial.service.SerialNumberService" ref="serialNumberService"/>
+
+</beans>
