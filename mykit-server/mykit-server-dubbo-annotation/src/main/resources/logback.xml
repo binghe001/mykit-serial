@@ -28,7 +28,7 @@
     <root>
     	<!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->  
         <level value="error" />  
-        <level value="info" />  
+        <level value="info" />
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="file"/>
     </root>
