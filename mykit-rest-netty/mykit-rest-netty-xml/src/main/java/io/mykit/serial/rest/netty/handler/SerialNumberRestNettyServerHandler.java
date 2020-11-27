@@ -29,6 +29,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @ChannelHandler.Sharable
 public class SerialNumberRestNettyServerHandler extends BaseSerialNumberRestNettyServerHandler {
     private SerialNumberService serialNumberService;
+    public SerialNumberRestNettyServerHandler(SerialNumberService serialNumberService){
+        this.serialNumberService = serialNumberService;
+    }
     @Override
     protected SerialNumberService getSerialNumber() {
         if(serialNumberService == null){

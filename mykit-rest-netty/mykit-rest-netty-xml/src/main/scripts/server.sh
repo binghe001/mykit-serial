@@ -1,8 +1,8 @@
 #!/bin/bash
 
 name="mykit-serial Rest Netty Server"
-package=vesta-rest-netty-0.0.1.jar
-port=8088
+package=mykit-rest-netty-xml-1.0.0-SNAPSHOT.jar
+port=10003
  
 #全局变量
 BASE_PATH=${BASE_PATH:-`cd "$(dirname "$0")"; pwd`}

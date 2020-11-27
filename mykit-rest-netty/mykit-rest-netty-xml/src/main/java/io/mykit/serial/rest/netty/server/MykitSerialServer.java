@@ -17,24 +17,29 @@ package io.mykit.serial.rest.netty.server;
 
 import io.mykit.serial.rest.netty.base.server.SerialNumberRestNettyServer;
 import io.mykit.serial.rest.netty.handler.SerialNumberRestNettyServerHandler;
+import io.mykit.serial.service.SerialNumberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * @author binghe
  * @version 1.0.0
  * @description 启动Netty服务
  */
-public class SerialNumberServer {
+public class MykitSerialServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SerialNumberServer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MykitSerialServer.class);
     public static void main(String[] args){
         int port = 10002;
         if(args != null && args.length > 0){
             port = Integer.parseInt(args[0]);
         }
         try{
-            new SerialNumberRestNettyServer(port, new SerialNumberRestNettyServerHandler()).startup();
+            ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/mykit-serial-rest-main.xml");
+            SerialNumberService serialNumberService = (SerialNumberService)context.getBean("serialNumberService");
+            new SerialNumberRestNettyServer(port, new SerialNumberRestNettyServerHandler(serialNumberService)).startup();
         }catch (Exception e){
             LOGGER.error("启动Netty服务异常: {}", e);
         }
