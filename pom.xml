@@ -19,6 +19,7 @@
         <module>mykit-interface</module>
         <module>mykit-server</module>
         <module>mykit-rest</module>
+        <module>mykit-rest-netty</module>
     </modules>
 
 
