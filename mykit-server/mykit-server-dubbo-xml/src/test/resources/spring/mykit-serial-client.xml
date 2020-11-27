@@ -7,9 +7,9 @@
 
     <dubbo:application name="mykit-serial-client"/>
 
-    <dubbo:registry address="${mykit.serial.service.register.center}"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
 
-    <dubbo:protocol name="dubbo" port="${mykit.serial.service.port}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
 
     <dubbo:reference interface="io.mykit.serial.service.SerialNumberService" id="serialNumberService"/>
 

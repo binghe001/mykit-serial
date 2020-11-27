@@ -5,11 +5,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="${mykit.serial.service.name}"/>
+    <dubbo:application name="${dubbo.application.name}"/>
 
-    <dubbo:registry address="${mykit.serial.service.register.center}"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
 
-    <dubbo:protocol name="dubbo" port="${mykit.serial.service.port}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
 
     <bean id="serialNumberService" class="io.mykit.serial.service.factory.SerialNumberServiceFactoryBean" init-method="init">
         <property name="providerType" value="PROPERTY"/>
