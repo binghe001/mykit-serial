@@ -74,9 +74,12 @@ public abstract class AbstractSerialNumberServiceImpl implements SerialNumberSer
             setSerialNumberMeta(SerialNumberMetaFactory.getSerialNumberMeta(serialNumberType));
             setType(serialNumberType.value());
         } else {
+            //最大峰值型
             if(this.serialNumberMeta.getTimeBits() == Constants.MAX_PEAK_TIME_BITS){
                 setType(Constants.MAX_PEAK_INT);
-            } else if(this.serialNumberMeta.getTimeBits() == Constants.MIN_GRANULARITY_TIME_BITS){
+            }
+            //最小粒度型
+            else if(this.serialNumberMeta.getTimeBits() == Constants.MIN_GRANULARITY_TIME_BITS){
                 setType(Constants.MIN_GRANULARITY_INT);
             } else {
                 throw new RuntimeException("Init Error. The time bits in IdMeta should be set to 30 or 40!");

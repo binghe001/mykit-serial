@@ -48,7 +48,6 @@ public class SerialNumberServiceFactoryBean implements FactoryBean<SerialNumberS
     private String ips;
 
     private String dbUrl;
-    //private String dbName;
     private String dbUser;
     private String dbPassword;
 
