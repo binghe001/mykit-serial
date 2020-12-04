@@ -4,6 +4,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.Properties;
 
 /**
@@ -41,5 +42,13 @@ public class PropLoad extends BaseLoad {
     public static Boolean getBooleanValue(String key){
        String v = getStringValue(key);
        return StringUtils.isEmpty(v) ? false : Boolean.parseBoolean(key);
+    }
+    public static void main(String[] args){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        System.out.println(calendar.getTime().getTime());
     }
 }

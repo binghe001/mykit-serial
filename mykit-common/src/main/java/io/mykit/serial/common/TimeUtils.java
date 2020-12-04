@@ -31,6 +31,9 @@ public class TimeUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TimeUtils.class);
 
+    /**
+     * 默认的时间从2020-12-01 00:00:00开始计算
+     */
     public static final long EPOCH = PropLoad.getLongValue(PropLoad.START_TIME);
 
 
