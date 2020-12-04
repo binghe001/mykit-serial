@@ -15,6 +15,7 @@
  */
 package io.mykit.serial.common;
 
+import io.mykit.serial.config.PropLoad;
 import io.mykit.serial.enums.SerialNumberType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +31,7 @@ public class TimeUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TimeUtils.class);
 
-    //TODO 优化点，可做成配置
-    public static final long EPOCH = 1420041600000L;
+    public static final long EPOCH = PropLoad.getLongValue(PropLoad.START_TIME);
 
 
     public static void validateTimestamp(long lastTimestamp, long timestamp) {

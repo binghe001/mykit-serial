@@ -20,6 +20,7 @@
         <module>mykit-server</module>
         <module>mykit-rest</module>
         <module>mykit-rest-netty</module>
+        <module>mykit-config</module>
     </modules>
 
 

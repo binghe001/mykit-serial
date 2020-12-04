@@ -17,5 +17,11 @@
             <artifactId>mykit-bean</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.mykit.serial</groupId>
+            <artifactId>mykit-config</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
