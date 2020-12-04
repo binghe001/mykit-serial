@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="serialNumbersService" class="io.mykit.serial.service.impl.MachineSerialNumbersServiceImpl" init-method="init">
+        <property name="machineSerialNumberProvider" ref="propertyMachineSerialNumbersProvider"/>
+    </bean>
+
+    <bean id="propertyMachineSerialNumbersProvider" class="io.mykit.serial.provider.impl.PropertyMachineSerialNumbersProvider">
+        <property name="machineSerialNumbers" value="1,2,3,4,5"/>
+    </bean>
+
+</beans>
