@@ -22,6 +22,7 @@
         <module>mykit-rest-netty</module>
         <module>mykit-config</module>
         <module>mykit-test</module>
+        <module>mykit-rpc</module>
     </modules>
 
     <properties>
