@@ -6,7 +6,7 @@ QQ：2711098650
 
 # 项目介绍
 
-> mykit-serial框架的设计参考了李艳鹏大佬开源的mykit-serial框架，并彻底重构了mykit-serial框架，借鉴了雪花算法（SnowFlake）的思想，并在此基础上进行了全面升级和优化。支持嵌入式（Jar包）、RPC（Dubbo，motan、sofa、SpringCloud、SpringCloud Alibaba等主流的RPC框架）、Restful API（支持SpringBoot和Netty），可支持最大峰值型和最小粒度型两种模式。
+> mykit-serial框架的设计参考了李艳鹏大佬开源的vesta框架，并彻底重构了vesta框架，借鉴了雪花算法（SnowFlake）的思想，并在此基础上进行了全面升级和优化。支持嵌入式（Jar包）、RPC（Dubbo，motan、sofa、SpringCloud、SpringCloud Alibaba等主流的RPC框架）、Restful API（支持SpringBoot和Netty），可支持最大峰值型和最小粒度型两种模式。
 >
 > 开源地址：
 >
@@ -97,13 +97,13 @@ mykit-serial框架各模块的含义如下：
 
 1. **嵌入发布模式**：只适用于Java客户端，提供一个本地的Jar包，Jar包是嵌入式的原生服务，需要提前配置本地机器ID（或者服务启动时，由Zookeeper动态分配唯一的分布式序列号），但是不依赖于中心服务器。
 
-2. **RPC发布模式**：只适用于Java客户端，提供一个服务的客户端Jar包，Java程序像调用本地API一样来调用，但是依赖于中心的分布式序列号（分布式ID）产生服务器。
+2. **RPC发布模式**：适用于Java客户端，提供一个服务的客户端Jar包，Java程序像调用本地API一样来调用，但是依赖于中心的分布式序列号（分布式ID）产生服务器。
 
 3. **REST发布模式**：中心服务器通过Restful API提供服务，供非Java语言客户端使用。
 
-发布模式最后会记录在生成的ID中。
+发布模式最后会记录在生成的全局序列号中。
 
-### ID类型
+### 序列号类型
 
 根据时间的位数和序列号的位数，可分为最大峰值型和最小粒度型。
 
@@ -160,7 +160,7 @@ mykit-serial框架各模块的含义如下：
 >**02**：REST发布模式
 >**03**：保留未用
 
-**5. ID类型**
+**5. 序列号类型**
 
 1位，用来区分两种ID类型：最大峰值型和最小粒度型。
 
@@ -184,7 +184,7 @@ mykit-serial框架各模块的含义如下：
 
 > 1. 使用concurrent包的ReentrantLock进行互斥，这是缺省的实现方式，也是追求性能和稳定两个目标的妥协方案。
 > 1. 使用传统的synchronized进行互斥，这种方式的性能稍微逊色一些，通过传入JVM参数-Dmykit.serial.sync.lock.impl.key=true来开启。
-> 1. 使用concurrent包的ReentrantLock进行互斥，这种实现方式的性能非常高，但是在高并发环境下CPU负载会很高，通过传入JVM参数-Dmykit.serial.atomic.impl.key=true来开启。
+> 1. 使用CAS方式进行互斥，这种实现方式的性能非常高，但是在高并发环境下CPU负载会很高，通过传入JVM参数-Dmykit.serial.atomic.impl.key=true来开启。
 
 ### 机器ID的分配
 
@@ -224,7 +224,7 @@ mykit-serial框架各模块的含义如下：
 - 示例：http://localhost:8080/genSerialNumber
 - 结果：3456526092514361344
 
-### 反解ID
+### 反解全局序列号
 
 - 描述：对产生的serialNumber进行反解，在响应体内返回反解的JSON字符串。
 - 路径：/expSerialNumber
@@ -242,7 +242,7 @@ mykit-serial框架各模块的含义如下：
 - 示例：http://localhost:8080/transtime?time=12758739
 - 结果：Thu May 28 16:05:39 CST 2015
 
-### 制造ID
+### 制造全局序列号
 
 - 描述：通过给定的分布式全局序列号元素制造分布式全局序列号。
 - 路径：/makeSerialNumber
@@ -253,23 +253,23 @@ mykit-serial框架各模块的含义如下：
 
 ## Java API文档
 
-### 产生ID
+### 产生全局序列号
 
 - 描述：根据系统时间产生一个全局唯一的分布式序列号（分布式ID）并且在方法体内返回。
 - 类：SerialNumberService
 - 方法：genSerialNumber
 - 参数：N/A
 - 返回类型：long
-- 示例：long id = idService.genSerialNumber();
+- 示例：long serialNumber= serialNumberService.genSerialNumber();
 
-### 反解ID
+### 反解全局序列号
 
 - 描述：对产生的分布式序列号（分布式ID）进行反解，在响应体内返回反解的JSON字符串。
 - 类：SerialNumberService
 - 方法：expSerialNumber
-- 参数：long id
-- 返回类型：Id
-- 示例：SerialNumber serialNumber = SerialNumberService.expSerialNumber(3456526092514361344);
+- 参数：long serialNumber
+- 返回类型：SerialNumber 
+- 示例：SerialNumber serialNumber = serialNumberService.expSerialNumber(3456526092514361344);
 
 ### 翻译时间
 
@@ -280,50 +280,50 @@ mykit-serial框架各模块的含义如下：
 - 返回类型：Date
 - 示例：Date date = serialNumberService.transTime(12758739);
 
-### 制造分布式序列号(1)
+### 制造全局序列号(1)
 
 - 描述：通过给定的分布式序列号元素制造分布式序列号。
 - 类：SerialNumberService
 - 方法：makeSerialNumber
 - 参数：long time, long seq
 - 返回类型：long
-- 示例：long id = SerialNumberService.makeSerialNumber(12758739, 0);
+- 示例：long serialNumber= SerialNumberService.makeSerialNumber(12758739, 0);
 
-### 制造分布式序列号(2)
+### 制造全局序列号(2)
 
 - 描述：通过给定的ID元素制造ID。
 - 类：SerialNumberService
 - 方法：makeSerialNumber
 - 参数：long machine, long time, long seq
 - 返回类型：long
-- 示例：long id = serialNumberService.makeSerialNumber(1, 12758739, 0);
+- 示例：long serialNumber= serialNumberService.makeSerialNumber(1, 12758739, 0);
 
-### 制造分布式序列号(3)
+### 制造全局序列号(3)
 
 - 描述：通过给定的分布式序列号元素制造ID。
 - 类：SerialNumberService
 - 方法：makeSerialNumber
 - 参数：long genMethod, long machine, long time, long seq
 - 返回类型：long
-- 示例：long id = serialNumberService.makeSerialNumber(0, 1, 12758739, 0);
+- 示例：long serialNumber= serialNumberService.makeSerialNumber(0, 1, 12758739, 0);
 
-### 制造分布式序列号（4)
+### 制造全局序列号（4)
 
 - 描述：通过给定的分布式序列号元素制造ID。
 - 类：SerialNumberService
 - 方法：makeSerialNumber
 - 参数：long type, long genMethod, long machine, long time, long seq
 - 返回类型：long
-- 示例：long id = serialNumberService.makeSerialNumber(0, 2, 1, 12758739, 0);
+- 示例：long serialNumber= serialNumberService.makeSerialNumber(0, 2, 1, 12758739, 0);
 
-### 制造分布式序列号(5)
+### 制造全局序列号(5)
 
 - 描述：通过给定的ID元素制造ID。
 - 类：SerialNumberService
 - 方法：makeSerialNumber
 - 参数：long version, long type, long genMethod, long machine, long time, long seq
 - 返回类型：long
-- 示例：long id = serialNumberService.makeSerialNumber(0, 0, 2, 1, 12758739, 0);
+- 示例：long serialNumber = serialNumberService.makeSerialNumber(0, 0, 2, 1, 12758739, 0);
 
 ## FAQ
 
@@ -338,6 +338,7 @@ mykit-serial框架各模块的含义如下：
 **3.每4年一次同步润秒会不会影响ID产生功能？**
 
 原子时钟和电子时钟每四年误差为1秒，也就是说电子时钟每4年会比原子时钟慢1秒，所以，每隔四年，网络时钟都会同步一次时间，但是本地机器Windows,Linux等不会自动同步时间，需要手工同步，或者使用ntpupdate向网络时钟同步。由于时钟是调快1秒，调整后不影响ID产生，调整的1s内没有ID产生。
+
 
 
 # 扫一扫关注微信公众号
