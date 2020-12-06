@@ -6,7 +6,7 @@ QQ：2711098650
 
 # 项目介绍
 
-> mykit-serial框架的设计参考了李艳鹏大佬开源的vesta框架，并彻底重构了vesta框架，借鉴了雪花算法（SnowFlake）的思想，并在此基础上进行了全面升级和优化。支持嵌入式（Jar包）、RPC（Dubbo，motan、sofa、SpringCloud、SpringCloud Alibaba等主流的RPC框架）、Restful API（支持SpringBoot和Netty），可支持最大峰值型和最小粒度型两种模式。
+> mykit-serial框架的设计参考了李艳鹏大佬开源的vesta框架，并彻底重构了vesta框架，借鉴了雪花算法（SnowFlake）的思想，并在此基础上进行了全面升级和优化。支持嵌入式（Jar包）、RPC（Dubbo，motan、sofa、SpringCloud、SpringCloud Alibaba等主流的RPC框架）、Restful API（支持SpringBoot和Netty）等方式发布服务，可支持最大峰值型和最小粒度型两种模式。
 >
 > 开源地址：
 >
