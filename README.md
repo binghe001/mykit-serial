@@ -248,7 +248,7 @@ mykit-serial框架各模块的含义如下：
 - 路径：/makeSerialNumber
 - 参数：genMethod=?&machine=?&seq=?&time=?&type=?&version=?
 - 非空参数：time,seq
-- 示例：http://localhost:8080/makeid?genMethod=2&machine=1022&seq=0&time=12758739&type=0&version=0
+- 示例：http://localhost:8080/makeSerialNumber?genMethod=2&machine=1022&seq=0&time=12758739&type=0&version=0
 - 结果：3456526092514361344
 
 ## Java API文档
